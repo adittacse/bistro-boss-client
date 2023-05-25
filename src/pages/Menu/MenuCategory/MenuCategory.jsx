@@ -1,6 +1,5 @@
 import React from 'react';
 import MenuItem from "../../Shared/MenuItem/MenuItem.jsx";
-import menuImg from "../../../assets/menu/banner3.jpg";
 import Cover from "../../Shared/Cover/Cover.jsx";
 
 const MenuCategory = ({ items, coverImage, title, description }) => {
