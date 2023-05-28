@@ -1,9 +1,14 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
+import { FaFacebookF, FaGoogle, FaGithub } from "react-icons/fa";
+import {AuthContext} from "../../providers/AuthProvider.jsx";
 
 const Login = () => {
     const captchaRef = useRef(null);
     const [disabled, setDisabled] = useState(true);
+    const {signIn, googleSignIn} = useContext(AuthContext);
+    const [success, setSuccess] = useState("");
+    const [error, setError] = useState("");
     
     useEffect( () => {
         loadCaptchaEnginge(6);
@@ -21,11 +26,33 @@ const Login = () => {
     
     const handleLogin = (event) => {
         event.preventDefault();
+        setSuccess("");
+        setError("");
         
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
         
+        signIn(email, password)
+            .then(result => {
+                setSuccess("Login successful!");
+            })
+            .catch(error => {
+                setError("Wrong Credentials!");
+            });
+    }
+    
+    const handleGoogleSignIn = () => {
+        googleSignIn()
+            .then(result => {
+                setError("");
+                const loggedUser = result.user;
+                // navigate(from, { replace: true });
+                setSuccess("Login successful!");
+            })
+            .catch(error => {
+                setError("Something Wrong!");
+            })
     }
     
     return (
@@ -48,9 +75,6 @@ const Login = () => {
                                 <span className="label-text">Password</span>
                             </label>
                             <input type="password" name="password" placeholder="password" className="input input-bordered" />
-                            <label className="label">
-                                <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
-                            </label>
                         </div>
                         <div className="form-control">
                             <label className="label">
@@ -63,6 +87,23 @@ const Login = () => {
                             <input disabled={disabled} className="btn btn-primary" type="submit" value="Login"/>
                         </div>
                     </form>
+                    <p className="text-center">New here? Create a New Account</p>
+                    
+                    <p className="text-success text-center">{success}</p>
+                    <p className="text-warning text-center">{error}</p>
+                    
+                    <div className="divider mb-6">Or sign in with</div>
+                    <div className="flex justify-center mb-6">
+                        <button className="btn btn-circle mr-4">
+                            <FaFacebookF></FaFacebookF>
+                        </button>
+                        <button className="btn btn-circle mr-4">
+                            <FaGoogle></FaGoogle>
+                        </button>
+                        <button className="btn btn-circle mr-4">
+                            <FaGithub></FaGithub>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
