@@ -3,6 +3,9 @@ import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-s
 import { FaFacebookF, FaGoogle, FaGithub } from "react-icons/fa";
 import {AuthContext} from "../../providers/AuthProvider.jsx";
 
+import img from "../../assets/others/authentication2.png";
+import {Link} from "react-router-dom";
+
 const Login = () => {
     const captchaRef = useRef(null);
     const [disabled, setDisabled] = useState(true);
@@ -61,6 +64,7 @@ const Login = () => {
                 <div className="text-center md:w-1/2 lg:text-left">
                     <h1 className="text-5xl font-bold">Login</h1>
                     <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+                    {/*<img src={img} alt=""/>*/}
                 </div>
                 <div className="card md:w-1/2 max-w-sm shadow-2xl bg-base-100">
                     <form onSubmit={handleLogin} className="card-body">
@@ -87,7 +91,7 @@ const Login = () => {
                             <input disabled={disabled} className="btn btn-primary" type="submit" value="Login"/>
                         </div>
                     </form>
-                    <p className="text-center">New here? Create a New Account</p>
+                    <p className="text-center">New here? <Link to="/signup">Create a New Account</Link></p>
                     
                     <p className="text-success text-center">{success}</p>
                     <p className="text-warning text-center">{error}</p>
