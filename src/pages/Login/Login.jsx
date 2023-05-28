@@ -2,9 +2,9 @@ import React, {useContext, useEffect, useRef, useState} from 'react';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { FaFacebookF, FaGoogle, FaGithub } from "react-icons/fa";
 import {AuthContext} from "../../providers/AuthProvider.jsx";
+import {Link} from "react-router-dom";
 
 import img from "../../assets/others/authentication2.png";
-import {Link} from "react-router-dom";
 
 const Login = () => {
     const captchaRef = useRef(null);
