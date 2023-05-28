@@ -97,7 +97,7 @@ const Login = () => {
                         <button className="btn btn-circle mr-4">
                             <FaFacebookF></FaFacebookF>
                         </button>
-                        <button className="btn btn-circle mr-4">
+                        <button onClick={handleGoogleSignIn} className="btn btn-circle mr-4">
                             <FaGoogle></FaGoogle>
                         </button>
                         <button className="btn btn-circle mr-4">
