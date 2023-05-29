@@ -19,7 +19,7 @@ const SignUp = () => {
             .then(result => {
                 const createdUser = result.user;
                 updateProfile(createdUser, {
-                    displayName: data.name
+                    displayName: data.name, photoURL: data.photoUrl
                 })
                     .then( () => {})
                     .catch(error => {
@@ -56,6 +56,13 @@ const SignUp = () => {
                                 </label>
                                 <input type="text" {...register("name", { required: true })} name="name" placeholder="name" className="input input-bordered" />
                                 {errors.name && <span className="text-warning">Name is required</span>}
+                            </div>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Photo URL</span>
+                                </label>
+                                <input type="text" {...register("photoUrl", { required: true })} name="photoUrl" placeholder="photoUrl" className="input input-bordered" />
+                                {errors.photoUrl && <span className="text-warning">Photo URL is required</span>}
                             </div>
                             <div className="form-control">
                                 <label className="label">
