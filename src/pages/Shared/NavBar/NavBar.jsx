@@ -16,10 +16,15 @@ const NavBar = () => {
         <li><Link to="/menu">Our Menu</Link></li>
         <li><Link to="/order/offered">Our Shop</Link></li>
         {
-            user ? <li><Link to="/" onClick={handleLogout}>Logout</Link></li>
-            : <li><Link to="/login">Login</Link></li>
+            user ? <>
+                    <li><Link to="/" onClick={handleLogout}>Logout</Link></li>
+                </>
+            : <>
+                    <li><Link to="/login">Login</Link></li>
+                    <li><Link to="/signup">Sign Up</Link></li>
+                </>
         }
-        <li><Link to="/signup">Sign Up</Link></li>
+        
     </>
     
     return (
@@ -42,7 +47,13 @@ const NavBar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <a className="btn">Get started</a>
+                    <div className="flex items-center">
+                        { user && <>
+                            <img className="w-12 h-12 rounded" src={user?.photoURL} alt="User Photo"/>
+                            <p className="ml-3">{user?.displayName}</p>
+                        </>
+                        }
+                    </div>
                 </div>
             </div>
         </div>

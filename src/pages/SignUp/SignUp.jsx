@@ -1,27 +1,33 @@
 import React, {useContext, useState} from 'react';
 import {FaFacebookF, FaGithub, FaGoogle} from "react-icons/fa";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import { useForm } from "react-hook-form";
 import {Helmet} from "react-helmet-async";
 import {AuthContext} from "../../providers/AuthProvider.jsx";
-import { updateProfile } from "firebase/auth";
+import Swal from "sweetalert2";
 
 import img from "../../assets/others/authentication2.png";
 
 const SignUp = () => {
-    const [success, setSuccess] = useState("");
     const [error, setError] = useState("");
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const {createUser, logOut} = useContext(AuthContext);
+    const {createUser, updateUserProfile, logOut} = useContext(AuthContext);
+    const navigate = useNavigate();
     
     const onSubmit = data => {
         createUser(data.email, data.password)
             .then(result => {
                 const createdUser = result.user;
-                updateProfile(createdUser, {
-                    displayName: data.name, photoURL: data.photoUrl
-                })
-                    .then( () => {})
+                updateUserProfile(data.name, data.photoUrl)
+                    .then( () => {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'User has been registered!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    })
                     .catch(error => {
                         setError(error.message);
                     })
@@ -29,8 +35,8 @@ const SignUp = () => {
                     .then( () => {})
                     .catch(error => {
                         setError(error.message);
-                    })
-                setSuccess("User created successfully!");
+                    });
+                navigate("/login");
             })
             .catch(error => {
                 setError(error.message);
@@ -91,7 +97,6 @@ const SignUp = () => {
                         </form>
                         <p className="text-center">Already registered? <Link to="/login">Go to log in</Link></p>
                         
-                        <p className="text-success text-center">{success}</p>
                         <p className="text-warning text-center">{error}</p>
                         
                         <div className="divider mb-6">Or sign in with</div>
