@@ -4,21 +4,29 @@ import Swal from "sweetalert2";
 import {useLocation, useNavigate} from "react-router-dom";
 
 const FoodCart = ({ item }) => {
-    const {name, recipe, image, price} = item;
+    const {_id, name, recipe, image, price} = item;
     const {user} = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
     
     const handleAddToCart = (item) => {
-        if (user) {
-            fetch("http://localhost:3000/carts")
+        if (user && user.email) {
+            const cartItem = {menuItemId: _id, name, image, price, email: user.email};
+            
+            fetch("http://localhost:3000/carts", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(cartItem)
+            })
                 .then(res => res.json())
                 .then(data => {
                     if (data.insertedId) {
                         Swal.fire({
                             position: 'top-end',
                             icon: 'success',
-                            title: 'Product added to the cart!',
+                            title: 'Food added on the cart!',
                             showConfirmButton: false,
                             timer: 1500
                         })
