@@ -1,25 +1,24 @@
-import React, {useContext, useEffect, useRef, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { FaFacebookF, FaGoogle, FaGithub } from "react-icons/fa";
 import {AuthContext} from "../../providers/AuthProvider.jsx";
 import {Link} from "react-router-dom";
+import {Helmet} from "react-helmet-async";
+import Swal from "sweetalert2";
 
 import img from "../../assets/others/authentication2.png";
-import {Helmet} from "react-helmet-async";
 
 const Login = () => {
-    const captchaRef = useRef(null);
     const [disabled, setDisabled] = useState(true);
     const {signIn, googleSignIn} = useContext(AuthContext);
-    const [success, setSuccess] = useState("");
     const [error, setError] = useState("");
     
     useEffect( () => {
         loadCaptchaEnginge(6);
     }, []);
     
-    const handleValidateCaptcha = () => {
-        const userCaptchaValue = captchaRef.current.value;
+    const handleValidateCaptcha = (event) => {
+        const userCaptchaValue = event.target.value;
         
         if (validateCaptcha(userCaptchaValue)) {
             setDisabled(false);
@@ -30,7 +29,6 @@ const Login = () => {
     
     const handleLogin = (event) => {
         event.preventDefault();
-        setSuccess("");
         setError("");
         
         const form = event.target;
@@ -39,7 +37,16 @@ const Login = () => {
         
         signIn(email, password)
             .then(result => {
-                setSuccess("Login successful!");
+                const loggedUser = result.user;
+                Swal.fire({
+                    title: 'Login Successful!',
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                    }
+                })
             })
             .catch(error => {
                 setError("Wrong Credentials!");
@@ -52,7 +59,15 @@ const Login = () => {
                 setError("");
                 const loggedUser = result.user;
                 // navigate(from, { replace: true });
-                setSuccess("Login successful!");
+                Swal.fire({
+                    title: 'Custom animation with Animate.css',
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                    }
+                })
             })
             .catch(error => {
                 setError("Something Wrong!");
@@ -85,8 +100,7 @@ const Login = () => {
                                 <label className="label">
                                     <LoadCanvasTemplate />
                                 </label>
-                                <input ref={captchaRef} type="text" name="recaptcha" placeholder="Type Above Captcha" className="input input-bordered" />
-                                <button onClick={handleValidateCaptcha} className="btn btn-outline btn-xs mt-6">Validate</button>
+                                <input onBlur={handleValidateCaptcha} type="text" name="recaptcha" placeholder="Type Above Captcha" className="input input-bordered" />
                             </div>
                             <div className="form-control mt-6">
                                 <input disabled={disabled} className="btn btn-primary" type="submit" value="Login"/>
@@ -94,7 +108,6 @@ const Login = () => {
                         </form>
                         <p className="text-center">New here? <Link to="/signup">Create a New Account</Link></p>
                         
-                        <p className="text-success text-center">{success}</p>
                         <p className="text-warning text-center">{error}</p>
                         
                         <div className="divider mb-6">Or sign in with</div>
