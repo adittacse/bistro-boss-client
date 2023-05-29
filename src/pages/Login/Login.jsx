@@ -5,6 +5,7 @@ import {AuthContext} from "../../providers/AuthProvider.jsx";
 import {Link} from "react-router-dom";
 
 import img from "../../assets/others/authentication2.png";
+import {Helmet} from "react-helmet-async";
 
 const Login = () => {
     const captchaRef = useRef(null);
@@ -59,57 +60,62 @@ const Login = () => {
     }
     
     return (
-        <div className="hero min-h-screen bg-base-200">
-            <div className="hero-content flex-col lg:flex-row-reverse">
-                <div className="card md:w-1/2 max-w-sm shadow-2xl bg-base-100">
-                    <h1 className="text-5xl font-bold text-center mt-6">Login</h1>
-                    <form onSubmit={handleLogin} className="card-body">
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">Email</span>
-                            </label>
-                            <input type="email" name="email" placeholder="email" className="input input-bordered" />
+        <>
+            <Helmet>
+                <title>Login | Bistro Bos</title>
+            </Helmet>
+            <div className="hero min-h-screen bg-base-200">
+                <div className="hero-content flex-col lg:flex-row-reverse">
+                    <div className="card md:w-1/2 max-w-sm shadow-2xl bg-base-100">
+                        <h1 className="text-5xl font-bold text-center mt-6">Login</h1>
+                        <form onSubmit={handleLogin} className="card-body">
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Email</span>
+                                </label>
+                                <input type="email" name="email" placeholder="email" className="input input-bordered" />
+                            </div>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Password</span>
+                                </label>
+                                <input type="password" name="password" placeholder="password" className="input input-bordered" />
+                            </div>
+                            <div className="form-control">
+                                <label className="label">
+                                    <LoadCanvasTemplate />
+                                </label>
+                                <input ref={captchaRef} type="text" name="recaptcha" placeholder="Type Above Captcha" className="input input-bordered" />
+                                <button onClick={handleValidateCaptcha} className="btn btn-outline btn-xs mt-6">Validate</button>
+                            </div>
+                            <div className="form-control mt-6">
+                                <input disabled={disabled} className="btn btn-primary" type="submit" value="Login"/>
+                            </div>
+                        </form>
+                        <p className="text-center">New here? <Link to="/signup">Create a New Account</Link></p>
+                        
+                        <p className="text-success text-center">{success}</p>
+                        <p className="text-warning text-center">{error}</p>
+                        
+                        <div className="divider mb-6">Or sign in with</div>
+                        <div className="flex justify-center mb-6">
+                            <button className="btn btn-circle mr-4">
+                                <FaFacebookF></FaFacebookF>
+                            </button>
+                            <button onClick={handleGoogleSignIn} className="btn btn-circle mr-4">
+                                <FaGoogle></FaGoogle>
+                            </button>
+                            <button className="btn btn-circle mr-4">
+                                <FaGithub></FaGithub>
+                            </button>
                         </div>
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">Password</span>
-                            </label>
-                            <input type="password" name="password" placeholder="password" className="input input-bordered" />
-                        </div>
-                        <div className="form-control">
-                            <label className="label">
-                                <LoadCanvasTemplate />
-                            </label>
-                            <input ref={captchaRef} type="text" name="recaptcha" placeholder="Type Above Captcha" className="input input-bordered" />
-                            <button onClick={handleValidateCaptcha} className="btn btn-outline btn-xs mt-6">Validate</button>
-                        </div>
-                        <div className="form-control mt-6">
-                            <input disabled={disabled} className="btn btn-primary" type="submit" value="Login"/>
-                        </div>
-                    </form>
-                    <p className="text-center">New here? <Link to="/signup">Create a New Account</Link></p>
-                    
-                    <p className="text-success text-center">{success}</p>
-                    <p className="text-warning text-center">{error}</p>
-                    
-                    <div className="divider mb-6">Or sign in with</div>
-                    <div className="flex justify-center mb-6">
-                        <button className="btn btn-circle mr-4">
-                            <FaFacebookF></FaFacebookF>
-                        </button>
-                        <button onClick={handleGoogleSignIn} className="btn btn-circle mr-4">
-                            <FaGoogle></FaGoogle>
-                        </button>
-                        <button className="btn btn-circle mr-4">
-                            <FaGithub></FaGithub>
-                        </button>
+                    </div>
+                    <div className="text-center md:w-1/2 lg:text-left">
+                        <img src={img} alt=""/>
                     </div>
                 </div>
-                <div className="text-center md:w-1/2 lg:text-left">
-                    <img src={img} alt=""/>
-                </div>
             </div>
-        </div>
+        </>
     );
 };
 
