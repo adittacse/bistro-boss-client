@@ -1,8 +1,10 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {FaFacebookF, FaGithub, FaGoogle} from "react-icons/fa";
 import {Link} from "react-router-dom";
 import { useForm } from "react-hook-form";
 import {Helmet} from "react-helmet-async";
+import {AuthContext} from "../../providers/AuthProvider.jsx";
+import { updateProfile } from "firebase/auth";
 
 import img from "../../assets/others/authentication2.png";
 
@@ -10,9 +12,29 @@ const SignUp = () => {
     const [success, setSuccess] = useState("");
     const [error, setError] = useState("");
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const {createUser, logOut} = useContext(AuthContext);
     
     const onSubmit = data => {
-        console.log(data);
+        createUser(data.email, data.password)
+            .then(result => {
+                const createdUser = result.user;
+                updateProfile(createdUser, {
+                    displayName: data.name
+                })
+                    .then( () => {})
+                    .catch(error => {
+                        setError(error.message);
+                    })
+                logOut()
+                    .then( () => {})
+                    .catch(error => {
+                        setError(error.message);
+                    })
+                setSuccess("User created successfully!");
+            })
+            .catch(error => {
+                setError(error.message);
+            })
     };
     
     return (
