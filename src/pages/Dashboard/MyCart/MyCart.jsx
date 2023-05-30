@@ -2,22 +2,52 @@ import React from 'react';
 import {Helmet} from "react-helmet-async";
 import useCart from "../../../hooks/useCart.jsx";
 import { RiDeleteBin5Line } from "react-icons/ri";
+import Swal from "sweetalert2";
 
 const MyCart = () => {
-    const [cart] = useCart();
+    const [cart, refetch] = useCart();
     const totalPrice = cart.reduce((sum, item) => item.price + sum, 0);
     
+    const handleDelete = (item) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`http://localhost:3000/carts/${item._id}`, {
+                    method: "DELETE"
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.deletedCount > 0) {
+                            refetch();
+                            Swal.fire(
+                                'Deleted!',
+                                'Your food has been deleted.',
+                                'success'
+                            )
+                        }
+                    })
+            }
+        })
+    }
+    
     return (
-        <div className="w-full px-28">
+        <div className="w-full">
             <Helmet>
                 <title>My Cart | Bistro Bos</title>
             </Helmet>
-            <div className="flex justify-between items-center font-semibold h-[44px] mb-6">
+            <div className="flex justify-evenly items-center font-semibold mb-8">
                 <h3 className="text-3xl uppercase">Total Orders: {cart.length}</h3>
-                <h3 className="text-3xl uppercase">Total Price: ${totalPrice}</h3>
+                <h3 className="text-3xl uppercase">Total Price: ${totalPrice.toFixed(2)}</h3>
                 <button className="btn btn-warning text-white">Pay</button>
             </div>
-            <div className="overflow-x-auto w-full justify-between">
+            <div className="overflow-x-auto w-[95%] mx-auto justify-between">
                 <table className="table w-full">
                     {/* head */}
                     <thead>
@@ -42,10 +72,10 @@ const MyCart = () => {
                                     </div>
                                 </div>
                             </td>
-                            <td>${item.name}</td>
+                            <td>{item.name}</td>
                             <td>${item.price}</td>
                             <th>
-                                <button className="btn text-xl bg-red-800 text-white">
+                                <button onClick={() => handleDelete(item)} className="btn text-lg bg-red-800 text-white">
                                     <RiDeleteBin5Line></RiDeleteBin5Line>
                                 </button>
                             </th>
