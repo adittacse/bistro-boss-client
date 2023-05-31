@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useQuery} from "@tanstack/react-query";
 import PageHeading from "../../Shared/PageHeading/PageHeading.jsx";
 import { MdAdminPanelSettings } from "react-icons/md";
@@ -130,18 +130,24 @@ const AllUsers = () => {
                             <td>
                                 {
                                     user.role === "admin" ? <>
-                                        <button onClick={() => handleMakeUser(user)} className="btn text-lg bg-emerald-800 text-white">
+                                        <button onClick={() => handleMakeUser(user)}
+                                                title="Admin"
+                                                className="btn text-lg bg-emerald-800 text-white">
                                             <MdAdminPanelSettings></MdAdminPanelSettings>
                                         </button>
                                         </> : <>
-                                            <button onClick={() => handleMakeAdmin(user)} className="btn text-lg bg-[#D1A054] text-white">
+                                            <button onClick={() => handleMakeAdmin(user)}
+                                                    title="Subscriber"
+                                                    className="btn text-lg bg-[#D1A054] text-white">
                                                 <HiUserGroup></HiUserGroup>
                                             </button>
                                         </>
                                 }
                             </td>
                             <td>
-                                <button onClick={() => handleUserDelete(user)} className="btn text-lg bg-red-800 text-white">
+                                <button onClick={() => handleUserDelete(user)}
+                                        title="Delete User"
+                                        className="btn text-lg bg-red-800 text-white">
                                     <RiDeleteBin5Line></RiDeleteBin5Line>
                                 </button>
                             </td>
