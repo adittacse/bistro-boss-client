@@ -3,6 +3,7 @@ import {Helmet} from "react-helmet-async";
 import useCart from "../../../hooks/useCart.jsx";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import Swal from "sweetalert2";
+import PageHeading from "../../Shared/PageHeading/PageHeading.jsx";
 
 const MyCart = () => {
     const [cart, refetch] = useCart();
@@ -42,6 +43,7 @@ const MyCart = () => {
             <Helmet>
                 <title>My Cart | Bistro Bos</title>
             </Helmet>
+            <PageHeading subHeading="Excellent Ambience" heading="My Boookings"></PageHeading>
             <div className="flex justify-evenly items-center font-semibold mb-8">
                 <h3 className="text-3xl uppercase">Total Orders: {cart.length}</h3>
                 <h3 className="text-3xl uppercase">Total Price: ${totalPrice.toFixed(2)}</h3>
