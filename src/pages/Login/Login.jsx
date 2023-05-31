@@ -1,17 +1,16 @@
 import React, {useContext, useEffect, useState} from 'react';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
-import { FaFacebookF, FaGoogle, FaGithub } from "react-icons/fa";
 import {AuthContext} from "../../providers/AuthProvider.jsx";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {Helmet} from "react-helmet-async";
 import Swal from "sweetalert2";
 
 import img from "../../assets/others/authentication2.png";
+import SocialLogin from "../Shared/SocialLogin/SocialLogin.jsx";
 
 const Login = () => {
     const [disabled, setDisabled] = useState(true);
-    const {signIn, googleSignIn} = useContext(AuthContext);
-    const [error, setError] = useState("");
+    const {signIn} = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
@@ -32,7 +31,6 @@ const Login = () => {
     
     const handleLogin = (event) => {
         event.preventDefault();
-        setError("");
         
         const form = event.target;
         const email = form.email.value;
@@ -53,29 +51,14 @@ const Login = () => {
                 navigate(from, { replace: true });
             })
             .catch(error => {
-                setError("Wrong Credentials!");
-            });
-    }
-    
-    const handleGoogleSignIn = () => {
-        googleSignIn()
-            .then(result => {
-                setError("");
-                const loggedUser = result.user;
+                // setError("Wrong Credentials!");
                 Swal.fire({
-                    title: 'Login Successful!',
-                    showClass: {
-                        popup: 'animate__animated animate__fadeInDown'
-                    },
-                    hideClass: {
-                        popup: 'animate__animated animate__fadeOutUp'
-                    }
-                });
-                navigate(from, { replace: true });
-            })
-            .catch(error => {
-                setError("Something Wrong!");
-            })
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: error.message,
+                    footer: 'Something went wrong!'
+                })
+            });
     }
     
     return (
@@ -111,21 +94,8 @@ const Login = () => {
                             </div>
                         </form>
                         <p className="text-center">New here? <Link to="/signup">Create a New Account</Link></p>
-                        
-                        <p className="text-warning text-center">{error}</p>
-                        
                         <div className="divider mb-6">Or sign in with</div>
-                        <div className="flex justify-center mb-6">
-                            <button className="btn btn-circle mr-4">
-                                <FaFacebookF></FaFacebookF>
-                            </button>
-                            <button onClick={handleGoogleSignIn} className="btn btn-circle mr-4">
-                                <FaGoogle></FaGoogle>
-                            </button>
-                            <button className="btn btn-circle mr-4">
-                                <FaGithub></FaGithub>
-                            </button>
-                        </div>
+                        <SocialLogin></SocialLogin>
                     </div>
                     <div className="text-center md:w-1/2 lg:text-left">
                         <img src={img} alt=""/>

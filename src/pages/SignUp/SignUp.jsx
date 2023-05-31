@@ -1,5 +1,4 @@
-import React, {useContext, useState} from 'react';
-import {FaFacebookF, FaGithub, FaGoogle} from "react-icons/fa";
+import React, {useContext} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import { useForm } from "react-hook-form";
 import {Helmet} from "react-helmet-async";
@@ -7,9 +6,9 @@ import {AuthContext} from "../../providers/AuthProvider.jsx";
 import Swal from "sweetalert2";
 
 import img from "../../assets/others/authentication2.png";
+import SocialLogin from "../Shared/SocialLogin/SocialLogin.jsx";
 
 const SignUp = () => {
-    const [error, setError] = useState("");
     const { register, handleSubmit, formState: { errors } } = useForm();
     const {createUser, updateUserProfile, logOut} = useContext(AuthContext);
     const navigate = useNavigate();
@@ -29,17 +28,32 @@ const SignUp = () => {
                         })
                     })
                     .catch(error => {
-                        setError(error.message);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: error.message,
+                            footer: 'Something went wrong!',
+                        })
                     })
                 logOut()
                     .then( () => {})
                     .catch(error => {
-                        setError(error.message);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: error.message,
+                            footer: 'Something went wrong!'
+                        })
                     });
                 navigate("/login");
             })
             .catch(error => {
-                setError(error.message);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: error.message,
+                    footer: 'Something went wrong!'
+                })
             })
     };
     
@@ -96,21 +110,8 @@ const SignUp = () => {
                             </div>
                         </form>
                         <p className="text-center">Already registered? <Link to="/login">Go to log in</Link></p>
-                        
-                        <p className="text-warning text-center">{error}</p>
-                        
                         <div className="divider mb-6">Or sign in with</div>
-                        <div className="flex justify-center mb-6">
-                            <button className="btn btn-circle mr-4">
-                                <FaFacebookF></FaFacebookF>
-                            </button>
-                            <button className="btn btn-circle mr-4">
-                                <FaGoogle></FaGoogle>
-                            </button>
-                            <button className="btn btn-circle mr-4">
-                                <FaGithub></FaGithub>
-                            </button>
-                        </div>
+                        <SocialLogin></SocialLogin>
                     </div>
                 </div>
             </div>
