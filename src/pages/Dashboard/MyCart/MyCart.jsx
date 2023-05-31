@@ -44,9 +44,9 @@ const MyCart = () => {
                 <title>My Cart | Bistro Bos</title>
             </Helmet>
             <PageHeading subHeading="Excellent Ambience" heading="My Boookings"></PageHeading>
-            <div className="flex justify-evenly items-center font-semibold mb-8">
-                <h3 className="text-3xl uppercase">Total Orders: {cart.length}</h3>
-                <h3 className="text-3xl uppercase">Total Price: ${totalPrice.toFixed(2)}</h3>
+            <div className="flex justify-between items-center w-[95%] mx-auto font-semibold mb-8">
+                <h3 className="text-2xl uppercase">Total Orders: {cart.length}</h3>
+                <h3 className="text-2xl uppercase">Total Price: ${totalPrice.toFixed(2)}</h3>
                 <button className="btn btn-warning text-white">Pay</button>
             </div>
             <div className="overflow-x-auto w-[95%] mx-auto justify-between">
@@ -54,11 +54,11 @@ const MyCart = () => {
                     {/* head */}
                     <thead>
                     <tr>
-                        <th></th>
-                        <th>ITEM IMAGE</th>
-                        <th>ITEM NAME</th>
-                        <th>PRICE</th>
-                        <th>ACTION</th>
+                        <th className="bg-[#D1A054] text-white"></th>
+                        <th className="bg-[#D1A054] text-white">ITEM IMAGE</th>
+                        <th className="bg-[#D1A054] text-white">ITEM NAME</th>
+                        <th className="bg-[#D1A054] text-white">PRICE</th>
+                        <th className="bg-[#D1A054] text-white">ACTION</th>
                     </tr>
                     </thead>
                     <tbody>

@@ -3,6 +3,7 @@ import {useQuery} from "@tanstack/react-query";
 import PageHeading from "../../Shared/PageHeading/PageHeading.jsx";
 import { HiUserGroup } from "react-icons/hi";
 import {RiDeleteBin5Line} from "react-icons/ri";
+import {Helmet} from "react-helmet-async";
 
 const AllUsers = () => {
     const {data: users = [], refetch} = useQuery(["users"], async () => {
@@ -11,21 +12,24 @@ const AllUsers = () => {
     });
     
     return (
-        <div className="">
+        <div>
+            <Helmet>
+                <title>All Users | Bistro Bos</title>
+            </Helmet>
             <PageHeading subHeading="How Many?" heading="Manage All Users"></PageHeading>
             <div className="flex font-semibold w-[95%] mx-auto mb-8">
                 <h3 className="text-2xl uppercase">Total Users: {users.length}</h3>
             </div>
             <div className="overflow-x-auto w-[95%] mx-auto">
-                <table className="table w-full">
+                <table className="table table-zebra w-full">
                     {/* head */}
                     <thead>
                     <tr>
-                        <th></th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Action</th>
+                        <th className="bg-[#D1A054] text-white"></th>
+                        <th className="bg-[#D1A054] text-white">Name</th>
+                        <th className="bg-[#D1A054] text-white">Email</th>
+                        <th className="bg-[#D1A054] text-white">Role</th>
+                        <th className="bg-[#D1A054] text-white">Action</th>
                     </tr>
                     </thead>
                     <tbody>
