@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Link, NavLink, Outlet} from "react-router-dom";
 import { AiFillHome } from "react-icons/ai";
 import { SlCalender } from "react-icons/sl";
@@ -11,7 +11,16 @@ import { TfiMenuAlt } from "react-icons/tfi";
 import {AuthContext} from "../providers/AuthProvider.jsx";
 
 const Dashboard = () => {
+    const [currentUserRole, setCurrentUserRole] = useState();
     const {user} = useContext(AuthContext);
+    
+    useEffect(() => {
+        fetch(`http://localhost:3000/users/${user.email}`)
+            .then(res => res.json())
+            .then(data => {
+                setCurrentUserRole(data.role);
+            })
+    }, []);
     
     return (
         <div className="drawer drawer-mobile">
@@ -25,7 +34,7 @@ const Dashboard = () => {
                 <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
                 <ul className="menu p-4 w-80 text-base-content">
                     {
-                        user.role === "admin" ? <>
+                        currentUserRole === "admin" ? <>
                                 <li><NavLink to="/dashboard/home"><AiFillHome></AiFillHome> Admin Home</NavLink></li>
                                 <li><NavLink to="/dashboard/reservation"><ImSpoonKnife></ImSpoonKnife> Add Items</NavLink></li>
                                 <li><NavLink to="/dashboard/payment-history"><TfiMenuAlt></TfiMenuAlt> Manage Items</NavLink></li>
