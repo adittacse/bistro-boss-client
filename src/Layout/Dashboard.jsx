@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Link, NavLink, Outlet} from "react-router-dom";
 import { AiFillHome } from "react-icons/ai";
 import { SlCalender } from "react-icons/sl";
@@ -8,9 +8,10 @@ import { TiThMenu } from "react-icons/ti";
 import { MdShoppingBag, MdEmail } from "react-icons/md";
 import { ImSpoonKnife } from "react-icons/im";
 import { TfiMenuAlt } from "react-icons/tfi";
+import {AuthContext} from "../providers/AuthProvider.jsx";
 
 const Dashboard = () => {
-    const isAdmin = true;
+    const {user} = useContext(AuthContext);
     
     return (
         <div className="drawer drawer-mobile">
@@ -24,7 +25,7 @@ const Dashboard = () => {
                 <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
                 <ul className="menu p-4 w-80 text-base-content">
                     {
-                        isAdmin ? <>
+                        user.role === "admin" ? <>
                                 <li><NavLink to="/dashboard/home"><AiFillHome></AiFillHome> Admin Home</NavLink></li>
                                 <li><NavLink to="/dashboard/reservation"><ImSpoonKnife></ImSpoonKnife> Add Items</NavLink></li>
                                 <li><NavLink to="/dashboard/payment-history"><TfiMenuAlt></TfiMenuAlt> Manage Items</NavLink></li>
