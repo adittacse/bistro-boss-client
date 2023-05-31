@@ -24,7 +24,7 @@ const AllUsers = () => {
             confirmButtonText: 'Yes, Make Admin!'
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:3000/users/admin/${user._id}`, {
+                fetch(`http://localhost:3000/users/user-to-admin/${user._id}`, {
                     method: "PATCH"
                 })
                     .then(res => res.json())
@@ -34,6 +34,35 @@ const AllUsers = () => {
                             Swal.fire(
                                 'Congratulations!',
                                 `${user.name} is an Admin now`,
+                                'success'
+                            )
+                        }
+                    })
+            }
+        })
+    }
+    
+    const handleMakeUser = (user) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: `Make ${user.name} Subscriber?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Make Subscriber!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`http://localhost:3000/users/admin-to-user/${user._id}`, {
+                    method: "PATCH"
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.modifiedCount) {
+                            refetch();
+                            Swal.fire(
+                                'Congratulations!',
+                                `${user.name} is Subscriber now`,
                                 'success'
                             )
                         }
@@ -76,7 +105,7 @@ const AllUsers = () => {
                             <td>
                                 {
                                     user.role === "admin" ? <>
-                                        <button className="btn text-lg bg-emerald-800 text-white">
+                                        <button onClick={() => handleMakeUser(user)} className="btn text-lg bg-emerald-800 text-white">
                                             <MdAdminPanelSettings></MdAdminPanelSettings>
                                         </button>
                                         </> : <>
