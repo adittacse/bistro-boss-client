@@ -124,7 +124,6 @@ const SignUp = () => {
                             </div>
                         </form>
                         <p className="text-center">Already registered? <Link to="/login">Go to log in</Link></p>
-                        <div className="divider mb-6">Or sign in with</div>
                         <SocialLogin></SocialLogin>
                     </div>
                 </div>

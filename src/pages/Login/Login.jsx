@@ -51,7 +51,6 @@ const Login = () => {
                 navigate(from, { replace: true });
             })
             .catch(error => {
-                // setError("Wrong Credentials!");
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
@@ -94,7 +93,6 @@ const Login = () => {
                             </div>
                         </form>
                         <p className="text-center">New here? <Link to="/signup">Create a New Account</Link></p>
-                        <div className="divider mb-6">Or sign in with</div>
                         <SocialLogin></SocialLogin>
                     </div>
                     <div className="text-center md:w-1/2 lg:text-left">
