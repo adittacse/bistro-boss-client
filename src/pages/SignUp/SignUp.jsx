@@ -9,7 +9,7 @@ import img from "../../assets/others/authentication2.png";
 import SocialLogin from "../Shared/SocialLogin/SocialLogin.jsx";
 
 const SignUp = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const {createUser, updateUserProfile, logOut} = useContext(AuthContext);
     const navigate = useNavigate();
     
@@ -19,13 +19,28 @@ const SignUp = () => {
                 const createdUser = result.user;
                 updateUserProfile(data.name, data.photoUrl)
                     .then( () => {
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'User has been registered!',
-                            showConfirmButton: false,
-                            timer: 1500
+                        const saveUser = {name: data.name, email: data.email};
+                        fetch("http://localhost:3000/users", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify(saveUser)
                         })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.insertedId) {
+                                    reset();
+                                    Swal.fire({
+                                        position: 'top-end',
+                                        icon: 'success',
+                                        title: 'User has been registered!',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                    navigate("/login");
+                                }
+                            })
                     })
                     .catch(error => {
                         Swal.fire({
@@ -33,7 +48,7 @@ const SignUp = () => {
                             title: 'Oops...',
                             text: error.message,
                             footer: 'Something went wrong!',
-                        })
+                        });
                     })
                 logOut()
                     .then( () => {})
@@ -43,9 +58,8 @@ const SignUp = () => {
                             title: 'Oops...',
                             text: error.message,
                             footer: 'Something went wrong!'
-                        })
+                        });
                     });
-                navigate("/login");
             })
             .catch(error => {
                 Swal.fire({
