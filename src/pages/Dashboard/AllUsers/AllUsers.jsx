@@ -72,7 +72,32 @@ const AllUsers = () => {
     }
     
     const handleUserDelete = (user) => {
-    
+        Swal.fire({
+            title: `Are you want to delete ${user.name}?`,
+            text: "You won't be able to restore this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`http://localhost:3000/users/${user._id}`, {
+                    method: "DELETE"
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.deletedCount > 0) {
+                            refetch();
+                            Swal.fire(
+                                'Deleted!',
+                                'User been deleted.',
+                                'success'
+                            )
+                        }
+                    })
+            }
+        })
     }
     
     return (
