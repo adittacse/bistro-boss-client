@@ -6,11 +6,13 @@ import { HiUserGroup } from "react-icons/hi";
 import {RiDeleteBin5Line} from "react-icons/ri";
 import {Helmet} from "react-helmet-async";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../../hooks/useAxiosSecure.jsx";
 
 const AllUsers = () => {
+    const [axiosSecure] = useAxiosSecure();
     const {data: users = [], refetch} = useQuery(["users"], async () => {
-        const res = await fetch("http://localhost:3000/users");
-        return res.json();
+        const res = await axiosSecure.get("/users");
+        return res.data;
     });
     
     const handleMakeAdmin = (user) => {
