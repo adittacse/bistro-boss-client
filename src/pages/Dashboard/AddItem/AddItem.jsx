@@ -4,11 +4,29 @@ import {Helmet} from "react-helmet-async";
 import { useForm } from 'react-hook-form';
 import {ImSpoonKnife} from "react-icons/im";
 
+const imageHostingToken = import.meta.env.VITE_Image_Upload_Token;
+
 const AddItem = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const imageHostingURL = `https://api.imgbb.com/1/upload?key=${imageHostingToken}`;
     
     const onSubmit = data => {
-        console.log(data)
+        const formData = new FormData();
+        formData.append("image", data.image[0]);
+        
+        fetch(imageHostingURL, {
+            method: "POST",
+            body: formData
+        })
+            .then(res => res.json())
+            .then(imgResponse => {
+                if (imgResponse.success) {
+                    const imgURL = imgResponse.data.display_url;
+                    const {name, category, price, recipe} = data;
+                    const newItem = {name, category, price: parseFloat(price), recipe, image: imageURL};
+                    console.log(newItem);
+                }
+            })
     };
     console.log(errors);
     
@@ -31,8 +49,8 @@ const AddItem = () => {
                             <label className="label">
                                 <span className="label-text text-black">Category*</span>
                             </label>
-                            <select {...register("category", { required: true })} className="select select-bordered">
-                                <option disabled selected>Pick one</option>
+                            <select defaultValue="Pick One" {...register("category", { required: true })} className="select select-bordered">
+                                <option disabled>Pick One</option>
                                 <option>Dessert</option>
                                 <option>Drinks</option>
                                 <option>Pizza</option>
