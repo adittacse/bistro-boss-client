@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {useQuery} from "@tanstack/react-query";
-import PageHeading from "../../Shared/PageHeading/PageHeading.jsx";
 import { MdAdminPanelSettings } from "react-icons/md";
 import { HiUserGroup } from "react-icons/hi";
 import {RiDeleteBin5Line} from "react-icons/ri";
 import {Helmet} from "react-helmet-async";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure.jsx";
+import SectionTitle from "../../../Components/SectionTitle/SectionTitle.jsx";
 
 const AllUsers = () => {
     const [axiosSecure] = useAxiosSecure();
@@ -105,9 +105,9 @@ const AllUsers = () => {
     return (
         <div>
             <Helmet>
-                <title>All Users | Bistro Bos</title>
+                <title>All Users | Bistro Boss</title>
             </Helmet>
-            <PageHeading subHeading="How Many?" heading="Manage All Users"></PageHeading>
+            <SectionTitle subHeading="How Many?" heading="Manage All Users"></SectionTitle>
             <div className="flex font-semibold w-[95%] mx-auto mb-8">
                 <h3 className="text-2xl uppercase">Total Users: {users.length}</h3>
             </div>

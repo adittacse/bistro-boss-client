@@ -3,7 +3,7 @@ import {Helmet} from "react-helmet-async";
 import useCart from "../../../hooks/useCart.jsx";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import Swal from "sweetalert2";
-import PageHeading from "../../Shared/PageHeading/PageHeading.jsx";
+import SectionTitle from "../../../Components/SectionTitle/SectionTitle.jsx";
 
 const MyCart = () => {
     const [cart, refetch] = useCart();
@@ -41,9 +41,9 @@ const MyCart = () => {
     return (
         <div className="w-full">
             <Helmet>
-                <title>My Cart | Bistro Bos</title>
+                <title>My Cart | Bistro Boss</title>
             </Helmet>
-            <PageHeading subHeading="Excellent Ambience" heading="My Boookings"></PageHeading>
+            <SectionTitle subHeading="Excellent Ambience" heading="My Boookings"></SectionTitle>
             <div className="flex justify-between items-center w-[95%] mx-auto font-semibold mb-8">
                 <h3 className="text-2xl uppercase">Total Orders: {cart.length}</h3>
                 <h3 className="text-2xl uppercase">Total Price: ${totalPrice.toFixed(2)}</h3>
