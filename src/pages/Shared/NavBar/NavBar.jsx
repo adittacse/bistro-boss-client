@@ -17,7 +17,7 @@ const NavBar = () => {
     const navOptions = <>
         <li><Link to="/">Home</Link></li>
         <li><Link to="/menu">Our Menu</Link></li>
-        <li><Link to="/order/offered">Our Shop</Link></li>
+        <li><Link to="/order/biryani">Our Shop</Link></li>
         <li>
             <Link to="/dashboard/my-cart">
                 <button className="btn gap-2">

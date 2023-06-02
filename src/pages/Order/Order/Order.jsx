@@ -9,13 +9,13 @@ import {useParams} from "react-router-dom";
 import {Helmet} from "react-helmet-async";
 
 const Order = () => {
-    const categories = ["offered", "Salad", "Pizza", "Soup", "Desserts", "Drinks"];
+    const categories = ["biryani", "Salad", "Pizza", "Soup", "Desserts", "Drinks"];
     const {category} = useParams();
     const initialIndex = categories.indexOf(category);
     const [tabIndex, setTabIndex] = useState(initialIndex);
     const [menu] = useMenu();
     
-    const offered = menu.filter(item => item.category == "offered");
+    const biryani = menu.filter(item => item.category == "Biryani");
     const salad = menu.filter(item => item.category === "salad");
     const pizza = menu.filter(item => item.category === "pizza");
     const soup = menu.filter(item => item.category === "soup");
@@ -30,7 +30,7 @@ const Order = () => {
             <Cover img={shopCoverImg} title="Our Shop" description="Would you like to try a dish?"></Cover>
             <Tabs className="mt-16 mb-16" defaultIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
                 <TabList className="text-center mb-16">
-                    <Tab>OFFERED</Tab>
+                    <Tab>BIRYANI</Tab>
                     <Tab>SALAD</Tab>
                     <Tab>PIZZA</Tab>
                     <Tab>SOUPS</Tab>
@@ -38,7 +38,7 @@ const Order = () => {
                     <Tab>DRINKS</Tab>
                 </TabList>
                 <TabPanel>
-                    <OrderTab items={offered}></OrderTab>
+                    <OrderTab items={biryani}></OrderTab>
                 </TabPanel>
                 <TabPanel>
                     <OrderTab items={salad}></OrderTab>

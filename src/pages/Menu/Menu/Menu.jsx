@@ -13,7 +13,7 @@ import soupImg from "../../../assets/menu/soup-bg.jpg";
 
 const Menu = () => {
     const [menu] = useMenu();
-    const offered = menu.filter(item => item.category === "offered");
+    const biryani = menu.filter(item => item.category === "Biryani");
     const dessert = menu.filter(item => item.category === "dessert");
     const pizza = menu.filter(item => item.category === "pizza");
     const salad = menu.filter(item => item.category === "salad");
@@ -28,7 +28,7 @@ const Menu = () => {
             {/*main cover*/}
             <SectionTitle subHeading="Don't miss" heading="Today's Offer"></SectionTitle>
             {/*offered menu items*/}
-            <MenuCategory items={offered}></MenuCategory>
+            <MenuCategory coverImage={pizzaImg} items={biryani} title="Biryani" description="Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."></MenuCategory>
             {/*dessert menu items*/}
             <MenuCategory coverImage={dessertImg} items={dessert} title="Desserts" description="Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."></MenuCategory>
             {/*pizza menu items*/}
