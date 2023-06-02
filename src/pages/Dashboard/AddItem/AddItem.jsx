@@ -65,6 +65,7 @@ const AddItem = () => {
                             </label>
                             <select defaultValue="Pick One" {...register("category", { required: true })} className="select select-bordered">
                                 <option disabled>Pick One</option>
+                                <option>Biryani</option>
                                 <option>Dessert</option>
                                 <option>Drinks</option>
                                 <option>Pizza</option>
@@ -85,7 +86,7 @@ const AddItem = () => {
                         </label>
                         <textarea className="textarea textarea-bordered h-32" {...register("recipe", { required: true })} placeholder="Recipe Details"></textarea>
                     </div>
-                    <input type="file" className="file-input w-full max-w-xs mt-4" />
+                    <input type="file" {...register("image", { required: true })} className="file-input w-full max-w-xs mt-4" />
                     <div className="flex mx-auto justify-center items-center mt-6">
                         <input className="btn btn-secondary" type="submit" value="Add Item"/>
                         <ImSpoonKnife className="text-white ml-2" />
