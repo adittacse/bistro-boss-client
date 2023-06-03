@@ -4,9 +4,38 @@ import SectionTitle from "../../../Components/SectionTitle/SectionTitle.jsx";
 import useMenu from "../../../hooks/useMenu.jsx";
 import {RiDeleteBin5Line} from "react-icons/ri";
 import { BiEdit } from "react-icons/bi";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../../hooks/useAxiosSecure.jsx";
 
 const ManageItems = () => {
-    const [menu] = useMenu();
+    const [menu, , refetch] = useMenu();
+    const [axiosSecure] = useAxiosSecure();
+    
+    const handleDelete = (item) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosSecure.delete(`/menu/${item._id}`)
+                    .then(res => {
+                        if (res.data.deletedCount> 0) {
+                            refetch();
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                        }
+                    })
+            }
+        })
+    }
     
     return (
         <div>
@@ -52,7 +81,7 @@ const ManageItems = () => {
                                     </button>
                                 </td>
                                 <td>
-                                    <button title="Delete Item"
+                                    <button onClick={() => handleDelete(item)} title="Delete Item"
                                             className="btn text-lg bg-red-800 text-white">
                                         <RiDeleteBin5Line></RiDeleteBin5Line>
                                     </button>
