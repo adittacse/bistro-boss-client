@@ -4,6 +4,7 @@ import useCart from "../../../hooks/useCart.jsx";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import Swal from "sweetalert2";
 import SectionTitle from "../../../Components/SectionTitle/SectionTitle.jsx";
+import {Link} from "react-router-dom";
 
 const MyCart = () => {
     const [cart, refetch] = useCart();
@@ -47,7 +48,9 @@ const MyCart = () => {
             <div className="flex justify-between items-center w-[95%] mx-auto font-semibold mb-8">
                 <h3 className="text-2xl uppercase">Total Orders: {cart.length}</h3>
                 <h3 className="text-2xl uppercase">Total Price: ${totalPrice.toFixed(2)}</h3>
-                <button className="btn btn-warning text-white">Pay</button>
+                <Link to="/dashboard/payment">
+                    <button className="btn btn-warning text-white">Pay</button>
+                </Link>
             </div>
             <div className="overflow-x-auto w-[95%] mx-auto justify-between">
                 <table className="table w-full">
