@@ -26,13 +26,13 @@ const Dashboard = () => {
                 <ul className="menu p-4 w-80 text-base-content">
                     {
                         isAdmin ? <>
-                                <li><NavLink to="/dashboard/home"><AiFillHome></AiFillHome> Admin Home</NavLink></li>
+                                <li><NavLink to="/dashboard/admin-home"><AiFillHome></AiFillHome> Admin Home</NavLink></li>
                                 <li><NavLink to="/dashboard/add-item"><ImSpoonKnife></ImSpoonKnife> Add An Item</NavLink></li>
                                 <li><NavLink to="/dashboard/manage-items"><TfiMenuAlt></TfiMenuAlt> Manage Items</NavLink></li>
                                 <li><NavLink to="/dashboard/payment-history"><FaBook></FaBook> Manage Bookings</NavLink></li>
                                 <li><NavLink to="/dashboard/all-users"><FaUsers></FaUsers> All Users</NavLink></li>
                             </> : <>
-                                <li><NavLink to="/dashboard/home"><AiFillHome></AiFillHome> User Home</NavLink></li>
+                                <li><NavLink to="/dashboard/user-home"><AiFillHome></AiFillHome> User Home</NavLink></li>
                                 <li><NavLink to="/dashboard/reservation"><SlCalender></SlCalender> Reservation</NavLink></li>
                                 <li><NavLink to="/dashboard/payment-history"><GiWallet></GiWallet> Payment History</NavLink></li>
                                 <li><NavLink to="/dashboard/my-cart"><FaShoppingCart></FaShoppingCart> My Cart</NavLink></li>
