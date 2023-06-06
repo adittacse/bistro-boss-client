@@ -9,9 +9,18 @@ import {MdShoppingBag, MdEmail, MdReviews} from "react-icons/md";
 import { ImSpoonKnife } from "react-icons/im";
 import { TfiMenuAlt } from "react-icons/tfi";
 import useAdmin from "../hooks/useAdmin.jsx";
+import useAuth from "../hooks/useAuth.jsx";
+import {IoLogOut} from "react-icons/io5";
 
 const Dashboard = () => {
     const [isAdmin] = useAdmin();
+    const {user, logOut} =useAuth();
+    
+    const handleLogout = () => {
+        logOut()
+            .then(() => {})
+            .catch(error => {})
+    }
     
     return (
         <div className="drawer drawer-mobile">
@@ -38,6 +47,7 @@ const Dashboard = () => {
                                 <li><NavLink to="/dashboard/my-cart"><FaShoppingCart></FaShoppingCart> My Cart</NavLink></li>
                                 <li><NavLink to="/dashboard/add-review"><MdReviews></MdReviews> Add Review</NavLink></li>
                                 <li><NavLink to="/dashboard/my-bookings"><SlCalender></SlCalender> My Bookings</NavLink></li>
+                            
                             </>
                     }
                     
@@ -46,6 +56,9 @@ const Dashboard = () => {
                     <li><NavLink to="/menu"><TiThMenu></TiThMenu> Menu</NavLink></li>
                     <li><NavLink to="/order/offered"><MdShoppingBag></MdShoppingBag> Shop</NavLink></li>
                     <li><NavLink to="/dashboard/contact"><MdEmail></MdEmail> Contact</NavLink></li>
+                    {
+                        user && <li><NavLink onClick={handleLogout} to="/"><IoLogOut></IoLogOut> Logout</NavLink></li>
+                    }
                 </ul>
             
             </div>
