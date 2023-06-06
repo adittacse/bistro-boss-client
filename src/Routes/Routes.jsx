@@ -15,6 +15,12 @@ import ManageItems from "../pages/Dashboard/ManageItems/ManageItems.jsx";
 import Payment from "../pages/Dashboard/Payment/Payment.jsx";
 import AdminHome from "../pages/Dashboard/AdminHome/AdminHome.jsx";
 import UserHome from "../pages/Dashboard/UserHome/UserHome.jsx";
+import ManageBookings from "../pages/Dashboard/ManageBookings/ManageBookings.jsx";
+import Reservation from "../pages/Dashboard/Reservation/Reservation.jsx";
+import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory.jsx";
+import AddReview from "../pages/Dashboard/AddReview/AddReview.jsx";
+import MyBookings from "../pages/Dashboard/MyBookings/MyBookings.jsx";
+import Contact from "../pages/Dashboard/Contact/Contact.jsx";
 
 export const router = createBrowserRouter([
     {
@@ -64,10 +70,22 @@ export const router = createBrowserRouter([
                 path: "manage-items",
                 element: <AdminRoute><ManageItems></ManageItems></AdminRoute>
             },
+            {
+                path: "manage-bookings",
+                element: <AdminRoute><ManageBookings></ManageBookings></AdminRoute>
+            },
             // user dashboard routes
             {
                 path: "user-home",
                 element: <UserHome></UserHome>
+            },
+            {
+                path: "reservation",
+                element: <Reservation></Reservation>
+            },
+            {
+                path: "payment-history",
+                element: <PaymentHistory></PaymentHistory>
             },
             {
                 path: "my-cart",
@@ -76,7 +94,19 @@ export const router = createBrowserRouter([
             {
                 path: "payment",
                 element: <Payment></Payment>
-            }
+            },
+            {
+                path: "add-review",
+                element: <AddReview></AddReview>
+            },
+            {
+                path: "my-bookings",
+                element: <MyBookings></MyBookings>
+            },
+            {
+                path: "contact",
+                element: <Contact></Contact>
+            },
         ]
     }
 ]);

@@ -5,7 +5,7 @@ import { SlCalender } from "react-icons/sl";
 import { GiWallet } from "react-icons/gi";
 import { FaShoppingCart, FaBook, FaUsers } from "react-icons/fa";
 import { TiThMenu } from "react-icons/ti";
-import { MdShoppingBag, MdEmail } from "react-icons/md";
+import {MdShoppingBag, MdEmail, MdReviews} from "react-icons/md";
 import { ImSpoonKnife } from "react-icons/im";
 import { TfiMenuAlt } from "react-icons/tfi";
 import useAdmin from "../hooks/useAdmin.jsx";
@@ -29,13 +29,15 @@ const Dashboard = () => {
                                 <li><NavLink to="/dashboard/admin-home"><AiFillHome></AiFillHome> Admin Home</NavLink></li>
                                 <li><NavLink to="/dashboard/add-item"><ImSpoonKnife></ImSpoonKnife> Add An Item</NavLink></li>
                                 <li><NavLink to="/dashboard/manage-items"><TfiMenuAlt></TfiMenuAlt> Manage Items</NavLink></li>
-                                <li><NavLink to="/dashboard/payment-history"><FaBook></FaBook> Manage Bookings</NavLink></li>
+                                <li><NavLink to="/dashboard/manage-bookings"><FaBook></FaBook> Manage Bookings</NavLink></li>
                                 <li><NavLink to="/dashboard/all-users"><FaUsers></FaUsers> All Users</NavLink></li>
                             </> : <>
                                 <li><NavLink to="/dashboard/user-home"><AiFillHome></AiFillHome> User Home</NavLink></li>
                                 <li><NavLink to="/dashboard/reservation"><SlCalender></SlCalender> Reservation</NavLink></li>
                                 <li><NavLink to="/dashboard/payment-history"><GiWallet></GiWallet> Payment History</NavLink></li>
                                 <li><NavLink to="/dashboard/my-cart"><FaShoppingCart></FaShoppingCart> My Cart</NavLink></li>
+                                <li><NavLink to="/dashboard/add-review"><MdReviews></MdReviews> Add Review</NavLink></li>
+                                <li><NavLink to="/dashboard/my-bookings"><SlCalender></SlCalender> My Bookings</NavLink></li>
                             </>
                     }
                     
@@ -43,7 +45,7 @@ const Dashboard = () => {
                     <li><NavLink to="/"><AiFillHome></AiFillHome> Home</NavLink></li>
                     <li><NavLink to="/menu"><TiThMenu></TiThMenu> Menu</NavLink></li>
                     <li><NavLink to="/order/offered"><MdShoppingBag></MdShoppingBag> Shop</NavLink></li>
-                    <li><NavLink to="/"><MdEmail></MdEmail> Contact</NavLink></li>
+                    <li><NavLink to="/dashboard/contact"><MdEmail></MdEmail> Contact</NavLink></li>
                 </ul>
             
             </div>
