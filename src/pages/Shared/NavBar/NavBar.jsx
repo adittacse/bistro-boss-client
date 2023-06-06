@@ -29,8 +29,10 @@ const NavBar = () => {
             </Link>
         </li>
         {
-            isAdmin ? <li><Link to="/dashboard/admin-home">Dashboard</Link></li>
-                : <li><Link to="/dashboard/user-home">Dashboard</Link></li>
+            user && isAdmin && <li><Link to="/dashboard/admin-home">Dashboard</Link></li>
+        }
+        {
+            user && !isAdmin && <li><Link to="/dashboard/user-home">Dashboard</Link></li>
         }
         {
             user ? <>
