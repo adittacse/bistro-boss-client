@@ -31,36 +31,44 @@ const AdminHome = () => {
             
             <div className="stats shadow w-[95%] flex mx-auto mt-8">
                 
-                <div className="stat">
+                <div className="stat flex">
                     <div className="stat-figure text-secondary text-4xl">
                         <GiWallet></GiWallet>
                     </div>
-                    <div className="stat-value">${parseFloat(stats.revenue || 0).toFixed(2)}</div>
-                    <div className="stat-title">Revenue</div>
+                    <div>
+                        <div className="stat-value">${parseFloat(stats.revenue || 0).toFixed(2)}</div>
+                        <div className="stat-title">Revenue</div>
+                    </div>
                 </div>
                 
-                <div className="stat">
+                <div className="stat flex">
                     <div className="stat-figure text-secondary text-4xl">
                         <FaUsers></FaUsers>
                     </div>
-                    <div className="stat-value">{stats.users}</div>
-                    <div className="stat-title">Customers</div>
+                    <div>
+                        <div className="stat-value">{stats.users}</div>
+                        <div className="stat-title">Customers</div>
+                    </div>
                 </div>
                 
-                <div className="stat">
+                <div className="stat flex">
                     <div className="stat-figure text-secondary text-4xl">
                         <TbChefHat></TbChefHat>
                     </div>
-                    <div className="stat-value">{stats.products}</div>
-                    <div className="stat-title">Products</div>
+                    <div>
+                        <div className="stat-value">{stats.products}</div>
+                        <div className="stat-title">Products</div>
+                    </div>
                 </div>
                 
-                <div className="stat">
+                <div className="stat flex">
                     <div className="stat-figure text-secondary text-4xl">
                         <FaTruck></FaTruck>
                     </div>
-                    <div className="stat-value">{stats.orders}</div>
-                    <div className="stat-title">Orders</div>
+                    <div>
+                        <div className="stat-value">{stats.orders}</div>
+                        <div className="stat-title">Orders</div>
+                    </div>
                 </div>
             
             </div>
