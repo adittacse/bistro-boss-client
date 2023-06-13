@@ -15,7 +15,7 @@ const FoodCart = ({ item }) => {
         if (user && user.email) {
             const cartItem = {menuItemId: _id, name, image, price, email: user.email};
             
-            fetch("http://localhost:3000/carts", {
+            fetch("https://bistrobossrestuarant-adittacse.b4a.run/carts", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

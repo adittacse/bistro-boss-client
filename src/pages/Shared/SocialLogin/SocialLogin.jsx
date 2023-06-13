@@ -20,7 +20,7 @@ const SocialLogin = () => {
                     email: loggedUser.email,
                     role: "subscriber"
                 };
-                fetch("http://localhost:3000/users", {
+                fetch("https://bistrobossrestuarant-adittacse.b4a.run/users", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"

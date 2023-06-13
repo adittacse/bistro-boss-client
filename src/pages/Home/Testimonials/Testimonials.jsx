@@ -12,7 +12,7 @@ const Testimonials = () => {
     const [reviews, setReviews] = useState([]);
     
     useEffect( () => {
-        fetch("http://localhost:3000/reviews")
+        fetch("https://bistrobossrestuarant-adittacse.b4a.run/reviews")
             .then(res => res.json())
             .then(data => setReviews(data));
     }, []);
