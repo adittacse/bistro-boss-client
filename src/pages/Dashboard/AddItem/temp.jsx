@@ -1,28 +1,147 @@
-import React from 'react';
+import React, {useState} from 'react';
+import SectionTitle from "../../../Components/SectionTitle/SectionTitle.jsx";
+import {Helmet} from "react-helmet-async";
 import { useForm } from 'react-hook-form';
+import {ImSpoonKnife} from "react-icons/im";
+import useAxiosSecure from "../../../hooks/useAxiosSecure.jsx";
+import Swal from "sweetalert2";
 
-export default function App() {
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = data => console.log(data);
-    console.log(errors);
+const imageHostingToken = import.meta.env.VITE_Image_Upload_Token;
+
+const AddItem = () => {
+    const [axiosSecure] = useAxiosSecure();
+    const { register, handleSubmit, reset } = useForm();
+    const imageHostingURL = `https://api.imgbb.com/1/upload?key=${imageHostingToken}`;
+    const [productId, setProductId] = useState('');
+    
+    
+    const onSubmit = async (data) => {
+        const { name, category, price, recipe, image } = data;
+        const newItem = {
+            name,
+            category,
+            price: parseFloat(price),
+            recipe,
+        };
+        
+        try {
+            const result = await axiosSecure.post('/menu', newItem);
+            const insertedId = result.data.insertedId;
+            setProductId(insertedId);
+            
+            if (insertedId) {
+                const formData = new FormData();
+                for (let i = 0; i < image.length; i++) {
+                    formData.append('image', image[i]);
+                }
+                
+                const response = await axiosSecure.post(`/upload/${insertedId}`, formData, {
+                    headers: { 'Content-Type': 'multipart/form-data' },
+                });
+                
+                if (response.data.success) {
+                    reset();
+                    await Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Food Item has been added successfully!',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                }
+            }
+        } catch (error) {
+            console.error('Error uploading images:', error);
+        }
+    };
+    
+    
+    // const onSubmit2 = data => {
+    //     const formData = new FormData();
+    //     formData.append("image", data.image[0]);
+    //
+    //     // for (let i = 0; i < data.image.length; i++) {
+    //     //     formData.append(`image${i}`, data.image[i]);
+    //     // }
+    //
+    //     fetch(imageHostingURL, {
+    //         method: "POST",
+    //         body: formData
+    //     })
+    //         .then(res => res.json())
+    //         .then(imgResponse => {
+    //             if (imgResponse.success) {
+    //                 const imgURL = imgResponse.data.display_url;
+    //                 const {name, category, price, recipe} = data;
+    //                 const newItem = {name, category, price: parseFloat(price), recipe, image: imgURL};
+    //                 axiosSecure.post("/menu", newItem)
+    //                     .then(data => {
+    //                         if (data.data.insertedId) {
+    //                             reset();
+    //                             Swal.fire({
+    //                                 position: 'top-end',
+    //                                 icon: 'success',
+    //                                 title: 'Food Item has been added successfully!',
+    //                                 showConfirmButton: false,
+    //                                 timer: 1500
+    //                             })
+    //                         }
+    //                     })
+    //             }
+    //         })
+    // };
     
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <input type="text" placeholder="First name" {...register("First name", {required: true, maxLength: 80})} />
-            <input type="text" placeholder="Last name" {...register("Last name", {required: true, maxLength: 100})} />
-            <input type="text" placeholder="Email" {...register("Email", {required: true, pattern: /^\S+@\S+$/i})} />
-            <input type="tel" placeholder="Mobile number" {...register("Mobile number", {required: true, minLength: 6, maxLength: 12})} />
-            <select {...register("Title", { required: true })}>
-                <option value="Mr">Mr</option>
-                <option value="Mrs">Mrs</option>
-                <option value="Miss">Miss</option>
-                <option value="Dr">Dr</option>
-            </select>
-            
-            <input {...register("Developer", { required: true })} type="radio" value="Yes" />
-            <input {...register("Developer", { required: true })} type="radio" value="No" />
-            
-            <input type="submit" />
-        </form>
+        <div className="w-full">
+            <Helmet>
+                <title>Add An Item | Bistro Boss</title>
+            </Helmet>
+            <SectionTitle subHeading="What's New?" heading="Add An item"></SectionTitle>
+            <div className="w-[90%] justify-center mx-auto my-8 p-6 rounded-xl bg-[#D1A054]">
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <div className="form-control w-full">
+                        <label className="label">
+                            <span className="label-text text-black">Recipe Name*</span>
+                        </label>
+                        <input type="text" placeholder="Recipe Name" {...register("name", {required: true, maxLength: 120})} className="input input-bordered w-full" />
+                    </div>
+                    <div className="flex">
+                        <div className="form-control w-full">
+                            <label className="label">
+                                <span className="label-text text-black">Category*</span>
+                            </label>
+                            <select defaultValue="Pick One" {...register("category", { required: true })} className="select select-bordered">
+                                <option disabled>Pick One</option>
+                                <option>Biryani</option>
+                                <option>Dessert</option>
+                                <option>Drinks</option>
+                                <option>Pizza</option>
+                                <option>Salad</option>
+                                <option>Soup</option>
+                            </select>
+                        </div>
+                        <div className="form-control w-full ml-6">
+                            <label className="label">
+                                <span className="label-text text-black">Price*</span>
+                            </label>
+                            <input type="text" placeholder="Price" {...register("price", { required: true })} className="input input-bordered w-full" />
+                        </div>
+                    </div>
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text text-black">Recipe Details*</span>
+                        </label>
+                        <textarea className="textarea textarea-bordered h-32" {...register("recipe", { required: true })} placeholder="Recipe Details"></textarea>
+                    </div>
+                    <input type="file" {...register("image", { required: true })} className="file-input w-full max-w-xs mt-4" multiple />
+                    <div className="flex mx-auto justify-center items-center mt-6">
+                        <input className="btn btn-secondary" type="submit" value="Add Item"/>
+                        <ImSpoonKnife className="text-white ml-2" />
+                    </div>
+                </form>
+            </div>
+        </div>
     );
-}
+};
+
+export default AddItem;
