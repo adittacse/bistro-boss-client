@@ -11,7 +11,7 @@ const useCart = () => {
         queryKey: ['carts', user?.email],
         enabled: !loading,
         // queryFn: async () => {
-        //     const res = await fetch(`https://bistrobossrestuarant-adittacse.b4a.run/carts?email=${user?.email}`, {
+        //     const res = await fetch(`https://bistro-boss-server-xpq6.onrender.com/carts?email=${user?.email}`, {
         //         headers: {authorization: `bearer ${token}`}
         //     });
         //     return res.json();

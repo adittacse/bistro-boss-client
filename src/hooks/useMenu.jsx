@@ -5,7 +5,7 @@ const useMenu = () => {
     const {data: menu = [], isLoading: loading, refetch} = useQuery({
         queryKey: ["menu"],
         queryFn: async () => {
-            const res = await fetch("https://bistrobossrestuarant-adittacse.b4a.run/menu");
+            const res = await fetch("https://bistro-boss-server-xpq6.onrender.com/menu");
             return res.json();
         }
     });

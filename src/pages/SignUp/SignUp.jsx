@@ -24,7 +24,7 @@ const SignUp = () => {
                             email: data.email,
                             role: "subscriber"
                         };
-                        fetch("https://bistrobossrestuarant-adittacse.b4a.run/users", {
+                        fetch("https://bistro-boss-server-xpq6.onrender.com/users", {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json"

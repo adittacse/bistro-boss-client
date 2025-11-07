@@ -27,7 +27,7 @@ const AllUsers = () => {
             confirmButtonText: 'Yes, Make Admin!'
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://bistrobossrestuarant-adittacse.b4a.run/users/user-to-admin/${user._id}`, {
+                fetch(`https://bistro-boss-server-xpq6.onrender.com/users/user-to-admin/${user._id}`, {
                     method: "PATCH"
                 })
                     .then(res => res.json())
@@ -56,7 +56,7 @@ const AllUsers = () => {
             confirmButtonText: 'Yes, Make Subscriber!'
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://bistrobossrestuarant-adittacse.b4a.run/users/admin-to-user/${user._id}`, {
+                fetch(`https://bistro-boss-server-xpq6.onrender.com/users/admin-to-user/${user._id}`, {
                     method: "PATCH"
                 })
                     .then(res => res.json())
@@ -85,7 +85,7 @@ const AllUsers = () => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://bistrobossrestuarant-adittacse.b4a.run/users/${user._id}`, {
+                fetch(`https://bistro-boss-server-xpq6.onrender.com/users/${user._id}`, {
                     method: "DELETE"
                 })
                     .then(res => res.json())

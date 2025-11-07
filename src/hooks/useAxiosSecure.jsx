@@ -4,7 +4,7 @@ import axios from "axios";
 import useAuth from "./useAuth.jsx";
 
 const axiosSecure = axios.create({
-    baseURL: "https://bistrobossrestuarant-adittacse.b4a.run",
+    baseURL: "https://bistro-boss-server-xpq6.onrender.com",
 });
 
 const UseAxiosSecure = () => {

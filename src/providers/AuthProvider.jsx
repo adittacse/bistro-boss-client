@@ -51,7 +51,7 @@ const AuthProvider = ({ children }) => {
             setUser(currentUser);
             // get and set token
             if (currentUser) {
-                axios.post("https://bistrobossrestuarant-adittacse.b4a.run/jwt", {
+                axios.post("https://bistro-boss-server-xpq6.onrender.com/jwt", {
                     email: currentUser.email,
                 })
                     .then(data => {
