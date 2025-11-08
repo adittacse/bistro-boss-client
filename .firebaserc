@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "bistro-boss-restaurant-3d93f"
-  }
+    "default": "bistro-boss-client-931f3",
+    "bistro-boss-client": "bistro-boss-client-931f3"
+  },
+  "targets": {},
+  "etags": {}
 }
